@@ -3,10 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
-var keyboardRouter = require('./routes/keyboard');
-var messageRouter = require('./routes/message'); //1
+var keyboardRouter = require('./routes/keyboard.js');
+var messageRouter = require('./routes/message.js');
+var message2Router = require('./routes/message2.js');
+var request = require('request');
+var cheerio = require('cheerio');
+
 
 var app = express();
 
@@ -23,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/keyboard', keyboardRouter);
 app.use('/message', messageRouter);
+app.use('/message2', message2Router);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,6 +38,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
+  res.locals.message2 = err.message; 
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
