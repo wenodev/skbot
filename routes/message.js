@@ -191,7 +191,7 @@ router.post('/', function(req, res, next) {
 	};
 	const menu = {
 		type: 'buttons',
-		buttons: ["1. 시작하기", "2. 사용방법", "3. 문의하기"]
+		buttons: ["시작하기", " 문의하기"]
 	};
 	const seat = {
 		type: 'buttons',
@@ -211,45 +211,50 @@ router.post('/', function(req, res, next) {
 	}
 	const cafe = {
 		type : 'buttons',
-		buttons: ["LAUREL","OLIVE","SB","SP"]
+		buttons: ["CAFE LAUREL","CAFE OLIVE","CAFE SB","CAFE SP"]
 	}
 
 	var res_object;
 	if (object.type == "text") {
-		if (object.content == "1. 시작하기") {
+		if (object.content == "시작하기") {
 			res_object = {
 				"message": {
-					"text": '처음 사용하시는 분은 사용방법을 먼저 클릭해주세요!\n\n\n'
-					+'@버스도착정보\n'
+					"text": '나와 대화를 시작해볼까?!(쑥스)\n'
+					+'나는 6가지에 대해 답변해줄수 있어(브이)\n\n'
+
+					+'1. 버스도착정보\n'
 					+'예시)버스도착정보 알려줘\n\n'
 
-					+'@셔틀버스정보@\n'
+					+'2. 셔틀버스정보\n'
 					+'예시)셔틀버스 시간표 알려줘\n\n'
 
-					+'@날씨정보@\n'
-					+'예시)날씨정보 알려줘\n\n'
+					+'3. 날씨정보\n'
+					+'예시)날씨정보 알려줘\n'
+					+'예시)오늘날씨 어떄? \n\n'
 
-					+'@도서관좌석현황@\n'
+					+'4. 도서관좌석현황\n'
 					+'예시) 도서관좌석현황 알려줘\n\n'
 
-					+'@식당정보@\n'
-					+'예시) 식당정보 알려줘\n\n'		  
+					+'5. 식당정보\n'
+					+'예시) 식당정보 알려줘\n'
+					+'예시) 북악관메뉴 알려줘\n\n'
 
-					+'@카페정보@\n'
+					+'6. 카페정보\n'
 					+'예시) 카페정보 알려줘\n'
+					+'예시) 로렐 아메리카노 얼마야?\n\n'
+
+					+'대화도중 도움이 필요하면\n '
+					+'(별)다시시작(별) 이라고 말해줘(윙크)\n\n'
+
+
+
 				},
 			};
-		} else if (object.content == "2. 사용방법") { //5
+		} 
+		else if (object.content == "문의하기") { //5
 			res_object = {
 				"message": {
-					"text": '준비중입니다.'
-				},
-				"keyboard": menu
-			};
-		} else if (object.content == "3. 문의하기") { //5
-			res_object = {
-				"message": {
-					"text": 'skbot1105@gmail.com으로\n 메일을 보내주세요:).\n',
+					"text": 'skbot1105@gmail.com으로\n 메일을 보내주세요(궁금)\n',
 					"photo": {
 						"url": "https://github.com/logicstark/kakao_test/blob/master/abc.JPG?raw=true",
 						"width" : 50,
@@ -287,10 +292,11 @@ router.post('/', function(req, res, next) {
 							+"두번째 버스 : " + bus4_2115  
 				},
 			};
-		}else if(object.content.match('셔틀버스정보')=='셔틀버스정보'){
+		}else if(object.content.match('셔틀버스정보')=='셔틀버스정보' ||object.content.match('셔틀') == '셔틀'){
 			res_object = {
 				"message": {
-					"text":'셔틀버스 시간표를 알려줄께(컴온)\n' + '시간표에있는 시간은 길음역 출발시간이야!',
+					"text":'셔틀버스 시간표를 알려줄께(컴온)\n' 
+							+ '시간표에있는 시간은 길음역 출발시간이야!',
 					"photo":{
 						"url": "https://github.com/logicstark/kakao_test/blob/master/sk_bus.jpg?raw=true",
 						"width" : 120,
@@ -304,7 +310,7 @@ router.post('/', function(req, res, next) {
 
 			};
 		}
-		else if(object.content.match('날씨정보')=='날씨정보'){
+		else if(object.content.match('날씨정보')=='날씨정보' || object.content.match('내일날씨')=='내일날씨' ) {
 			res_object = {
 				"message": {
 					"text": "날씨정보를 알려줄께"
@@ -316,7 +322,7 @@ router.post('/', function(req, res, next) {
 			res_object = {
 				"message": {
 					"text" : "현재온도 : " + tem_cur + "\n"
-							+"현재 강수확률 :  " + rain_cur + "\n"
+							+"현재 강수확률 :  " + rain_cur + "%" + "\n"
 							+"오늘 최저기온 : " + tmn_today + "\n"
 							+"오늘 최고기온 : " + tmx_today 
 				},
@@ -343,25 +349,25 @@ router.post('/', function(req, res, next) {
 							+"최고온도 : " + tmx_weak[4] + "\n\n"
 							+"<" + dt_mm + "/" + dt_dd_weak[5]  + ">\n"
 							+"최저온도 : " + tmn_weak[5] + "\n"
-							+"최고온도 : " + tmx_weak[5] + "\n\n"
+							+"최고온도 : " + tmx_weak[5]
 				},
 			};
 		}
 		else if(object.content.match('식당정보')=='식당정보'||object.content.match('학식')=='학식'){
 			res_object = {
 				"message":{
-					"text": '장소를 선택해줘\n',
+					"text":'나도 배고프다..(절규)' 
+							+ '장소를 선택해줘\n',
 				},
 				"keyboard" : eat
 			};
-		
 		}
 
 
 		else if(object.content.match('북악관메뉴')=='북악관메뉴' || object.content.match('북악관 메뉴')=='북악관 메뉴'){
 			res_object = {
 				"message": {
-					"text":'이번주 북악관 메뉴를 알려줄께\n',
+					"text":'이번주 북악관 메뉴를 알려줄께(밥)\n',
 					"message_button":{
 						"label":"여기를 클릭해줘",
 						"url": "https://logicstark.github.io/kakao_test/buk.html"
@@ -371,7 +377,7 @@ router.post('/', function(req, res, next) {
 		}else if(object.content.match('한림관메뉴')=='한림관메뉴' || object.content.match('한림관 메뉴')=='한림관 메뉴'){
 			res_object = {
 				"message": {
-					"text":'이번주 한림관 메뉴를 알려줄께\n',
+					"text":'이번주 한림관 메뉴를 알려줄께(밥)\n',
 					"message_button":{
 						"label":"여기를 클릭해줘",
 						"url": "https://logicstark.github.io/kakao_test/han.html"
@@ -381,17 +387,19 @@ router.post('/', function(req, res, next) {
 		}else if(object.content.match('청운관메뉴')=='청운관메뉴' || object.content.match('청운관 메뉴')=='청운관 메뉴'){
 			res_object = {
 				"message": {
-					"text":'이번주 청운관 메뉴를 알려줄께\n',
+					"text":'이번주 청운관 메뉴를 알려줄께(밥)\n',
 					"message_button":{
 						"label":"여기를 클릭해줘",
 						"url": "https://logicstark.github.io/kakao_test/ch.html"
 					}
 				},
 			};
-		}else if(object.content.match('도서관좌석현황')=='도서관좌석현황' || object.content.match('도서관좌석')=='도서관좌석' || object.content.match('도서관 좌석') == '도서관 좌석') {
+		}else if(object.content.match('도서관좌석현황')=='도서관좌석현황' || object.content.match('도서관좌석')=='도서관좌석' || object.content.match('도서관 좌석') == '도서관 좌석' || object.content.match('도서관')=='도서관') {
 			res_object = {
 				"message": {
-					"text" : '어디가 궁금해?\n' + '버튼을 눌러줘~'
+					"text" :'오? 공부좀 하려고?(축하)\n'
+							+ '어디가 궁금해?(우와)\n' 
+							+ '버튼을 눌러줘(야옹)'
 				},
 				"keyboard": seat	
 			};
@@ -470,7 +478,7 @@ router.post('/', function(req, res, next) {
 				"keyboard" : cafe
 			};
 		}
-		else if(object.content.match("LAUREL")=='LAUREL'){
+		else if(object.content.match("CAFE LAUREL")=='CAFE LAUREL' || object.content.match("로렐")=='로렐') {
 			res_object = {
 				"message" : {
 					"text" : '메뉴판을 보여줄께(컴온)',
@@ -486,7 +494,7 @@ router.post('/', function(req, res, next) {
 				},
 			};
 		}
-		else if(object.content.match("OLIVE")=='OLIVE'){
+		else if(object.content.match("CAFE OLIVE")=='CAFE OLIVE' || object.content.match("올리브")=='올리브' ){
 			res_object = {
 				"message" : {
 					"text" : '메뉴판을 보여줄께(컴온)',
@@ -502,7 +510,7 @@ router.post('/', function(req, res, next) {
 				},
 			};
 		}
-		else if(object.content.match("SB")=='SB'){
+		else if(object.content.match("CAFE SB")=='CAFE SB' ||  object.content.match("에스비")=='에스비' || object.content.match("sb")=='sb') {
 			res_object = {
 				"message" : {
 					"text" : '메뉴판을 보여줄께(컴온)',
@@ -518,7 +526,7 @@ router.post('/', function(req, res, next) {
 				},
 			};
 		}
-		else if(object.content.match("SP")=='SP'){
+		else if(object.content.match("CAFE SP")=='CAFE SP'|| object.content.match("에스피")=='에스피' ||  object.content.match("sp")=='sp'){
 			res_object = {
 				"message" : {
 					"text" : '메뉴판을 보여줄께(컴온)',
@@ -534,28 +542,24 @@ router.post('/', function(req, res, next) {
 				},
 			};
 		}
-
-		else if(object.content.match('메뉴') =='메뉴'){
+		else if(object.content.match('시작') =='시작' || object.content.match("처음")=='처음' ){
 			res_object = {
 				"message" : {
-					"text": '처음부터 시작!(미소)'
+					"text": '처음부터 다시 시작!(미소)'
 				},
 				"keyboard" : menu
 			};
 		}
-
-
-
 		else {
 			res_object = {
 				"message": {
-					"text":'내가 모르는 말이네(흑흑)\n' + '사용방법을 한번 더 읽어줄래?\n'
+					"text":'내가 모르는 말이네(흑흑)\n' + '다시 시작 해줄래?(컴온)'
 				},
 				"keyboard": menu
 			};
 		}
 	}
-	res.set({ //6
+	res.set({
 		'content-type': 'application/json'
 	}).send(JSON.stringify(res_object));
 });
